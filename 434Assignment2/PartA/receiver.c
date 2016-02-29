@@ -84,6 +84,7 @@ int main(void)
 		char *token = strtok(buf, " ");
 		char *toSend = token;
 		token = strtok(NULL, " ");
+		token = strtok(NULL, " ");
 		lastReceivedWindow = atoi(token);
 
 		printf("listener: got packet from %s\n",
