@@ -72,6 +72,7 @@ int main(int argc, char *argv[])
 			fprintf(stderr, "ERROR READING FROM TERMINAL");
 			exit(1);
 		}
+		input[strcspn(input, "\r\n")] = 0;
 		if(strcmp(input, "exit") == 0){
 			break;
 		}
