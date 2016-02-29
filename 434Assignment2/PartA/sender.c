@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 		}
 	   toSend = (char *)malloc(nbytes + 1);
 	   sprintf(toSend, "%d", currentWindowVal);
-	   strcat(toSend, " ");
+	   strcat(toSend, "*");
 	   strcat(toSend, input);
 
 		if ((numbytes = sendto(sockfd, toSend, strlen(toSend), 0,

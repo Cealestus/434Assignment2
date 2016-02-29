@@ -81,9 +81,9 @@ int main(void)
 			perror("recvfrom");
 			exit(1);
 		}
-		char *token = strtok(buf, " ");
+		char *token = strtok(buf, "*");
 		lastReceivedWindow = atoi(token);
-		token = strtok(NULL, " ");
+		token = strtok(NULL, "*");
 		char *toSend = token;
 
 		printf("listener: got packet from %s\n",
