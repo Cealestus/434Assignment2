@@ -65,25 +65,29 @@ int main(int argc, char *argv[])
     }
 
     //Get text from terminal
-    input = (char *)malloc(nbytes + 1);
-    bytes_read = getline(&input, &nbytes, stdin);
-    if(bytes_read == -1){
-    	fprintf(stderr, "ERROR READING FROM TERMINAL");
-    	exit(1);
-    }
-   toSend = (char *)malloc(nbytes + 1);
-   sprintf(toSend, "%d", currentWindowVal);
-   strcat(toSend, input);
+    while(1){
+		input = (char *)malloc(nbytes + 1);
+		bytes_read = getline(&input, &nbytes, stdin);
+		if(bytes_read == -1){
+			fprintf(stderr, "ERROR READING FROM TERMINAL");
+			exit(1);
+		}
+		if(strcmp(input, "exit") == 0){
+			break;
+		}
+	   toSend = (char *)malloc(nbytes + 1);
+	   sprintf(toSend, "%d", currentWindowVal);
+	   strcat(toSend, input);
 
-    if ((numbytes = sendto(sockfd, toSend, strlen(toSend), 0,
-             p->ai_addr, p->ai_addrlen)) == -1) {
-        perror("talker: sendto");
-        exit(1);
-    }
+		if ((numbytes = sendto(sockfd, toSend, strlen(toSend), 0,
+				 p->ai_addr, p->ai_addrlen)) == -1) {
+			perror("talker: sendto");
+			exit(1);
+		}
 
+		printf("talker: sent %d bytes to %s\n", numbytes, argv[1]);
+    }
     freeaddrinfo(servinfo);
-
-    printf("talker: sent %d bytes to %s\n", numbytes, argv[1]);
     close(sockfd);
 
     return 0;
