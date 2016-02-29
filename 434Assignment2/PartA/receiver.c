@@ -102,17 +102,17 @@ int main(void)
 			getline(&input, &nbytes, stdin);
 			input[strcspn(input, "\r\n")] = 0;
 			if(strcmp(input, "Y") == 0){
-				//Send positive acknowledgment
+				//TODO: Send positive acknowledgment
 				printf("Message was indicated as correct.\n");
 			}else{
-				//Send negative acknowledgment
+				//TODO: Send negative acknowledgment
 				printf("MESSAGE WAS INDICATED INCORRECT:\n");
 				printf("listener: packet is %d bytes long\n", numbytes);
 				buf[numbytes] = '\0';
 				printf("Frame number: %d; Packet contains: \"%s\"\n", currentReceivedWindow, toPrint);
 			}
 		}else{
-			//Send negative acknowledgment
+			//TODO: Send negative acknowledgment
 			printf("MESSAGE WAS RECEIVED OUT OF ORDER:\n");
 			printf("listener: packet is %d bytes long\n", numbytes);
 			buf[numbytes] = '\0';
