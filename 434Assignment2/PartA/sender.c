@@ -13,19 +13,31 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-#define SERVERPORT "4950"    // the port users will be connecting to
-
 int main(int argc, char *argv[])
 {
     int sockfd;
     struct addrinfo hints, *servinfo, *p;
     int rv;
     int numbytes;
+    char *SERVERPORT;
+    int MAXWINDOWSIZE;
+    int TIMEOUTVALUE;
+    int bytes_read;
+    size_t nbytes = 512;
+    int currentWindowVal = 0;
+    char *input;
+    char *toSend;
 
-    if (argc != 3) {
-        fprintf(stderr,"usage: talker hostname message\n");
+    /*IP Address, Port Number, Max Sending Size, Timeout Value*/
+    if (argc != 5) {
+        fprintf(stderr,"usage: receiver IP address, port number, window size, timeout value (seconds)\n");
         exit(1);
     }
+
+    SERVERPORT = argv[2];
+    MAXWINDOWSIZE = atoi(argv[3]);
+    TIMEOUTVALUE = atoi(argv[4]);
+
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
@@ -52,7 +64,18 @@ int main(int argc, char *argv[])
         return 2;
     }
 
-    if ((numbytes = sendto(sockfd, argv[2], strlen(argv[2]), 0,
+    //Get text from terminal
+    input = (char *)malloc(nbytes + 1);
+    bytes_read = getline(&input, &nbytes, stdin);
+    if(bytes_read == -1){
+    	fprintf(stderr, "ERROR READING FROM TERMINAL");
+    	exit(1);
+    }
+   toSend = (char *)malloc(nbytes + 1);
+   sprintf(toSend, "%d", currentWindowVal);
+   strcat(toSend, input);
+
+    if ((numbytes = sendto(sockfd, toSend, strlen(toSend), 0,
              p->ai_addr, p->ai_addrlen)) == -1) {
         perror("talker: sendto");
         exit(1);
