@@ -90,6 +90,11 @@ int main(int argc, char *argv[])
 		}
 
 		printf("talker: sent %d bytes to %s\n", numbytes, argv[1]);
+		if(currentWindowVal >= MAXWINDOWSIZE){
+			currentWindowVal = 0;
+		}else{
+			currentWindowVal++;
+		}
     }
     freeaddrinfo(servinfo);
     close(sockfd);
