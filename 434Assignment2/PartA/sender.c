@@ -101,8 +101,8 @@ int main(int argc, char *argv[])
         fprintf(stderr, "talker: failed to create socket\n");
         return 2;
     }
+    freeaddrinfo(servinfo);
 
-    printf("Debugging statement\n");
     pthread_create(&RLThread, NULL, &responseListen, NULL);
 
     while(1){
@@ -134,7 +134,6 @@ int main(int argc, char *argv[])
 			currentWindowVal++;
 		}
     }
-    freeaddrinfo(servinfo);
     close(sockfd);
 
     return 0;
