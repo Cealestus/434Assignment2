@@ -102,6 +102,7 @@ int main(int argc, char *argv[])
         return 2;
     }
 
+    printf("Debugging statement\n");
     pthread_create(&RLThread, NULL, &responseListen, NULL);
 
     while(1){
