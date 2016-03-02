@@ -12,8 +12,39 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <pthread.h>
+
+pthread_t RLThread;
+int sockfd;
+struct sockaddr_storage their_addr;
+char *Messages[256];
+int messageAck[256];
+
+void* responseListen(){
+	int MAXBUFLEN = 512;
+	char buf[MAXBUFLEN];
+	int numbytes;
+	int responseToken;
+	socklen_t addr_len;
+
+	addr_len = sizeof their_addr;
+	while(1){
+		if((numbytes = recvfrom(sockfd, buf, MAXBUFLEN-1 , 0, (struct sockaddr *)&their_addr, &addr_len)) == -1){
+			perror("recvfrom");
+			exit(1);
+		}
+		char *token = strtok(buf, "*");
+		responseToken = atoi(token);
+		token = strtok(NULL, "*");
+		char *responseMessage = token;
+		if(strcmp(responseMessage, "SUCCESS")){
+			printf("Received Successful response for message #: %i", responseToken);
+			messageAck[responseToken] = 1;
+		}
 
 
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -29,6 +60,10 @@ int main(int argc, char *argv[])
     int currentWindowVal = 0;
     char *input;
     char *toSend;
+
+    for(int i = 0; i < 256; i++){
+    	messageAck[i] = 0;
+    }
 
     /*IP Address, Port Number, Max Sending Size, Timeout Value*/
     if (argc != 5) {
@@ -66,7 +101,8 @@ int main(int argc, char *argv[])
         return 2;
     }
 
-    //Get text from terminal
+    pthread_create(&RLThread, NULL, &responseListen, NULL);
+
     while(1){
 		input = (char *)malloc(nbytes + 1);
 		bytes_read = getline(&input, &nbytes, stdin);
