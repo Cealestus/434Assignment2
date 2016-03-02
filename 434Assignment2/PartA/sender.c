@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     struct addrinfo hints, *servinfo, *p;
     int rv;
     int numbytes;
+    int i;
     char *SERVERPORT;
     int MAXWINDOWSIZE;
     int TIMEOUTVALUE;
@@ -61,7 +62,7 @@ int main(int argc, char *argv[])
     char *input;
     char *toSend;
 
-    for(int i = 0; i < 256; i++){
+    for(i = 0; i < 256; i++){
     	messageAck[i] = 0;
     }
 
