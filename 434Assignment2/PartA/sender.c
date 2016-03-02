@@ -94,6 +94,12 @@ int main(int argc, char *argv[])
             continue;
         }
 
+        if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
+        	close(sockfd);
+        	perror("listener: bind");
+        	continue;
+        }
+
         break;
     }
 
