@@ -104,9 +104,9 @@ int main(void)
 			input[strcspn(input, "\r\n")] = 0;
 			if(strcmp(input, "Y") == 0){
 				printf("Preparing to send response to sender\n");
-				toSend = (char *)malloc(nbytes + 1);
-				sprintf(toSend, "%i", currentReceivedWindow);
-				strcat(toSend, "*SUCCESS");
+//				toSend = (char *)malloc(nbytes + 1);
+//				sprintf(toSend, "%i", currentReceivedWindow);
+//				strcat(toSend, "*SUCCESS");
 				//sendto(sockfd, toSend, strlen(toSend), 0, p->ai_addr, p->ai_addrlen);
 				printf("Message was indicated as correct.\n");
 			}else{
