@@ -106,6 +106,7 @@ int main(void)
 				toSend = (char *)malloc(nbytes + 1);
 				sprintf(toSend, "%i", currentReceivedWindow);
 				strcat(toSend, "*SUCCESS");
+				printf("Preparing to send response to sender\n");
 				sendto(sockfd, toSend, strlen(toSend), 0, p->ai_addr, p->ai_addrlen);
 				printf("Message was indicated as correct.\n");
 			}else{
