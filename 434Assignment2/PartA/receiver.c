@@ -107,7 +107,7 @@ int main(void)
 				sprintf(toSend, "%i", currentReceivedWindow);
 				strcat(toSend, "*SUCCESS");
 				printf("Preparing to send response to sender\n");
-				sendto(sockfd, toSend, strlen(toSend), 0, p->ai_addr, p->ai_addrlen);
+				//sendto(sockfd, toSend, strlen(toSend), 0, p->ai_addr, p->ai_addrlen);
 				printf("Message was indicated as correct.\n");
 			}else{
 				printf("MESSAGE WAS INDICATED INCORRECT:\n");
