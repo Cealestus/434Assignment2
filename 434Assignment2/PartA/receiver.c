@@ -77,6 +77,7 @@ int main(void)
 
     freeaddrinfo(servinfo);
     while(1){
+    	input = (char *)malloc(nbytes + 1);
 		printf("listener: waiting to recvfrom...\n");
 
 		addr_len = sizeof their_addr;
