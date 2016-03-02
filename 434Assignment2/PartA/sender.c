@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
         return 2;
     }
 
-    //pthread_create(&RLThread, NULL, &responseListen, NULL);
+    pthread_create(&RLThread, NULL, &responseListen, NULL);
 
     while(1){
 		input = (char *)malloc(nbytes + 1);
