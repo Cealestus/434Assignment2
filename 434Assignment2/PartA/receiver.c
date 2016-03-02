@@ -41,6 +41,7 @@ int main(void)
     size_t nbytes = 512;
     char s[INET6_ADDRSTRLEN];
     char *input;
+	char *toSend;
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC; // set to AF_INET to force IPv4
