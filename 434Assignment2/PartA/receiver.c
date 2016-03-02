@@ -102,8 +102,8 @@ int main(void)
 			printf("Please indicate correct transmission (Y/N)\n");
 			getline(&input, &nbytes, stdin);
 			input[strcspn(input, "\r\n")] = 0;
+			printf("Debugging Statement\n");
 			if(strcmp(input, "Y") == 0){
-				printf("Preparing to send response to sender\n");
 //				toSend = (char *)malloc(nbytes + 1);
 //				sprintf(toSend, "%i", currentReceivedWindow);
 //				strcat(toSend, "*SUCCESS");
