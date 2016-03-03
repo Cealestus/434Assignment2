@@ -94,12 +94,6 @@ int main(int argc, char *argv[])
             continue;
         }
 
-        if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
-        	close(sockfd);
-        	perror("listener: bind");
-        	continue;
-        }
-
         break;
     }
 
@@ -109,7 +103,7 @@ int main(int argc, char *argv[])
     }
     freeaddrinfo(servinfo);
 
-    pthread_create(&RLThread, NULL, &responseListen, NULL);
+    //pthread_create(&RLThread, NULL, &responseListen, NULL);
 
     while(1){
 		input = (char *)malloc(nbytes + 1);
