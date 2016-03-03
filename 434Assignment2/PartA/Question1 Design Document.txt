@@ -1,0 +1,45 @@
+Matthew Eisler
+mge987
+11145250
+CMPT 434 Assignment #2
+
+Functionality:
+
+Currently Question 1 properly communicates from a sender to a receiver. A datagram is given a numbered index, indicating what position
+it has in the window. The sender transfers the datagram to the receiver, which separates the datagram into its index and message. Both
+are then displayed to the screen, along with their packet information. The receiver requests user input to ensure that the datagram was
+sent correctly. The sender will currently send an unlimited number of messages, before being manually exited by the user. The receiver
+will also receive an unlimited number of messages, however it must be manually exited using the terminal "Ctrl+C" force quit command.
+
+Limitations:
+
+Currently Question 1 does not implement the sliding window functionality properly. Internally, the program uses the input window size,
+for example, 10, and uses that number as a window. Outside of this, however, it will not re-broadcast any messages, nor will it receive
+any feedback from the sender. It has no timeout functionality and has no intelligent way of knowing if the server has received messages
+or not received messages.
+
+The receiver does not keep track of which frames it has received, other than a tracker ensuring that the current packet is one greater
+than the last packet sent. Currently, this does not loop similarly to the sender, so once the sender passes its maximum window threshold
+it will error. The receiver does not send any feedback to the sender.
+
+Finally, the system does not have any corruption simulation as stated in the assignment spec. Without any external corruption, the system
+should run perfectly undefinitely.
+
+My main reason for the lack of functionality was a lack of time. While I do understand we had a lot of time to finish the assignment,
+I moved over the past week, which took a significant amount of my school time. Towards the due date, I did put a considerable amount
+of time in, but I hit snags with trying to sendto and recvfrom in the sender and receiver. For example, there is a commented out section
+in both the sender and receiver. Uncommenting these reveals the sender giving a, "recvfrom: Socket operation on non-socket" error. On
+the receiver side, when I included the sendto statement, I ended up receiving the message on the receiver side along with a (null)
+message. This is due to the way that I parse the datagram, and I believe that if the sender was recvfrom properly, the receiver would
+not catch the datagram. Due to these problems, I did not have enough time to implement the sliding window functionality.
+
+Implementation Design:
+
+I use an infintie main loop in both the sender and receiver to send/receive messages. Using this method allowed me to constantly check
+the command line for new messages, package them and send them. Similarly, the receiver was able to constantly check for new messages.
+Since the receiver waits on the recvfrom statement, it would not create any unwanted behaviour. To keep track of the index of the
+datagrams, I prepended a number to the beginning of the message and used a "*" symbol as a token. This allowed me to search for a
+specific symbol to separate the string with, rather than sending a (potentially) clunky struct. I had begun to implement listening
+for a responce from the receiver on the sender side using threads, but as noted above I was unable to complete it properly. This would
+have spawned a thread that would wait for the receiver to send an acknowledgement, indicating that it received a datagram correctly.
+If it did not receive this confirmation, it would have waited for a specified amount of time before re-sending the datagram.
