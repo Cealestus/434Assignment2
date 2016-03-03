@@ -18,4 +18,13 @@ The starter should then be started. This requires the most amount of user input,
 "./sender 128.233.236.68 30001 10 10". The sender will not prompt for input, but will wait for text on the terminal.
 
 At this point both systems have been started. Typing into the sender side should create indications on the sender and receiver that
-data has been transferred between the two.
+data has been transferred between the two. Both sender and  receiver will produce textual feedback, but do not currently communicate
+properly between eachother. The receiver currently requests the user to confirm whether or not the listed output was correctly
+received.
+
+Entering "exit" as input on the sender side will cause the sender to quit. The receiver must be manually exited by using "Ctrl+C"
+to quit the application.
+
+To Run Part A, Question 2:
+
+I did not complete part 2, as I was having difficulty getting Question 1's components to use feedback for proper operation.
