@@ -15,4 +15,7 @@ stating: "listener: waiting to recvfrom..."
 
 The starter should then be started. This requires the most amount of user input, requiring 5 statements. The format is as follows:
 "./sender <IP Address of server> 30001 <Maximum number of frames> <Timeout value>". As an example, the input I give the program is:
-"./sender 128.233.236.68 30001 10 10". The sender will then prompt 
+"./sender 128.233.236.68 30001 10 10". The sender will not prompt for input, but will wait for text on the terminal.
+
+At this point both systems have been started. Typing into the sender side should create indications on the sender and receiver that
+data has been transferred between the two.
